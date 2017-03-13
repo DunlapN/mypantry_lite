@@ -1,6 +1,6 @@
 <!-- Validation failure messages -->
-<% if @pantry.errors.any? %>
-  <% @pantry.errors.full_messages.each do |message| %>
+<% if @pantries_item.errors.any? %>
+  <% @pantries_item.errors.full_messages.each do |message| %>
     <div class="alert alert-dismissable alert-danger">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <%= message %>
@@ -9,23 +9,17 @@
 <% end %>
 
 <div class="page-header">
-  <h3>Edit Pantry #<%= @pantry.id %></h3>
+  <h3>Edit Pantries Item #<%= @pantries_item.id %></h3>
 </div>
 
 <div class="row">
   <div class="col-md-12">
-    <form action="/update_pantry/<%= @pantry.id %>" method="post">
+    <form action="/update_pantries_item/<%= @pantries_item.id %>" method="post">
       <!-- Hidden input for authenticity token to protect from forgery -->
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
-      <!-- Label and input for user_id -->
-      <div class="form-group">
-        <label for="user_id" class="control-label">
-          User
-        </label>
-
-        <input type="text" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= @pantry.user_id %>">
-      </div>
+      
+      
 
       <!-- Label and input for food_id -->
       <div class="form-group">
@@ -33,14 +27,14 @@
           Food
         </label>
 
-        <input type="text" id="food_id" name="food_id" placeholder="Food" class="form-control" value="<%= @pantry.food_id %>">
+        <%= select_tag(:food_id, options_from_collection_for_select(Food.all, :id, :name, @pantries_item.food_id), :class => "form-control") %>
       </div>
 
       <button class="btn btn-warning">
-        Update Pantry
+        Update Pantries Item
       </button>
       or
-      <a href="/pantries/<%= @pantry.id %>">Cancel</a>
+      <a href="/pantries_items/<%= @pantries_item.id %>">Cancel</a>
     </form>
   </div>
 </div>

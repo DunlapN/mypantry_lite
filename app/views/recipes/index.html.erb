@@ -9,6 +9,16 @@
       <p class="lead">Narrow results:</p>
 
         <div class="form-group">
+    <%= f.label :name_cont, "Name contains" %>
+    <%= f.text_field :name_cont, :class => "form-control", :placeholder => "Name contains" %>
+  </div>
+
+<div class="form-group">
+    <%= f.label :description_cont, "Description contains" %>
+    <%= f.text_field :description_cont, :class => "form-control", :placeholder => "Description contains" %>
+  </div>
+
+<div class="form-group">
           <%= f.label :created_at, "Created at" %>
           <div class="row">
             <div class='col-md-6 mb-1'>
@@ -48,7 +58,10 @@
           });
       </script>
 
-        
+        <div class="form-group">
+      <%= f.label :creator_username_cont, "User username contains" %>
+      <%= f.text_field :creator_username_cont, :class => "form-control", :placeholder => "User username contains" %>
+    </div>
 
       <%= f.submit :class => "btn btn-primary btn-block mb-1" %>
 
@@ -64,11 +77,25 @@
   <div class="col-md-12">
     <table class="table table-striped table-hover">
       <tr>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Description</th>
+        <th>Creator</th>
         <th>Actions</th>
       </tr>
 
       <% @recipes.each do |recipe| %>
       <tr>
+        <td><%= recipe.name %></td>
+        <td><img src='<%= recipe.image %>' class='img-responsive'></td>
+        <td><%= recipe.description %></td>
+        <td>
+          <% if recipe.creator.present? %>
+            <a href="/users/<%= recipe.creator.id %>">
+              <%= recipe.creator.username %>
+            </a>
+          <% end %>
+        </td>
         <td>
           <a href="/recipes/<%= recipe.id %>" class="btn btn-primary">Show</a>
           <a href="/recipes/<%= recipe.id %>/edit" class="btn btn-warning">Edit</a>

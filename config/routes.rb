@@ -2,6 +2,23 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   root :to => "recipes#index"
+  # Routes for the Food resource:
+  # CREATE
+  get "/foods/new", :controller => "foods", :action => "new"
+  post "/create_food", :controller => "foods", :action => "create"
+
+  # READ
+  get "/foods", :controller => "foods", :action => "index"
+  get "/foods/:id", :controller => "foods", :action => "show"
+
+  # UPDATE
+  get "/foods/:id/edit", :controller => "foods", :action => "edit"
+  post "/update_food/:id", :controller => "foods", :action => "update"
+
+  # DELETE
+  get "/delete_food/:id", :controller => "foods", :action => "destroy"
+  #------------------------------
+
   # Routes for the Ingredient resource:
   # CREATE
   get "/ingredients/new", :controller => "ingredients", :action => "new"
@@ -26,21 +43,21 @@ Rails.application.routes.draw do
   get "/users/:id", :controller => "users", :action => "show"
 
 
-  # Routes for the Pantry resource:
+  # Routes for the Pantries_item resource:
   # CREATE
-  get "/pantries/new", :controller => "pantries", :action => "new"
-  post "/create_pantry", :controller => "pantries", :action => "create"
+  get "/pantries_items/new", :controller => "pantries_items", :action => "new"
+  post "/create_pantries_item", :controller => "pantries_items", :action => "create"
 
   # READ
-  get "/pantries", :controller => "pantries", :action => "index"
-  get "/pantries/:id", :controller => "pantries", :action => "show"
+  get "/pantries_items", :controller => "pantries_items", :action => "index"
+  get "/pantries_items/:id", :controller => "pantries_items", :action => "show"
 
   # UPDATE
-  get "/pantries/:id/edit", :controller => "pantries", :action => "edit"
-  post "/update_pantry/:id", :controller => "pantries", :action => "update"
+  get "/pantries_items/:id/edit", :controller => "pantries_items", :action => "edit"
+  post "/update_pantries_item/:id", :controller => "pantries_items", :action => "update"
 
   # DELETE
-  get "/delete_pantry/:id", :controller => "pantries", :action => "destroy"
+  get "/delete_pantries_item/:id", :controller => "pantries_items", :action => "destroy"
   #------------------------------
 
   # Routes for the Recipe resource:

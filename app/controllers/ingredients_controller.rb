@@ -1,7 +1,7 @@
 class IngredientsController < ApplicationController
   def index
     @q = Ingredient.ransack(params[:q])
-    @ingredients = @q.result(:distinct => true).page(params[:page]).per(10)
+    @ingredients = @q.result(:distinct => true).includes(:recipe, :food).page(params[:page]).per(10)
 
     render("ingredients/index.html.erb")
   end
@@ -22,6 +22,7 @@ class IngredientsController < ApplicationController
     @ingredient = Ingredient.new
 
     @ingredient.food_id = params[:food_id]
+    @ingredient.recipe_id = params[:recipe_id]
 
     save_status = @ingredient.save
 
@@ -49,6 +50,7 @@ class IngredientsController < ApplicationController
     @ingredient = Ingredient.find(params[:id])
 
     @ingredient.food_id = params[:food_id]
+    @ingredient.recipe_id = params[:recipe_id]
 
     save_status = @ingredient.save
 

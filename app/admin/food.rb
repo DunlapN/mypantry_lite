@@ -1,6 +1,6 @@
-ActiveAdmin.register Ingredient do
+ActiveAdmin.register Food do
 
- permit_params :food_id, :recipe_id
+ permit_params :name, :image
 
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters

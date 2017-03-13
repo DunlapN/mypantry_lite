@@ -1,4 +1,4 @@
-ActiveAdmin.register Pantry do
+ActiveAdmin.register PantriesItem do
 
  permit_params :user_id, :food_id
 

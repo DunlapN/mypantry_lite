@@ -5,6 +5,24 @@
 <div class="row">
   <div class="col-md-12 mb-2">
     <dl class="dl-horizontal">
+      <dt>Name</dt>
+      <dd><%= @recipe.name %></dd>
+
+      <dt>Image</dt>
+      <dd><img src="<%= @recipe.image %>" class="img-responsive"></dd>
+
+      <dt>Description</dt>
+      <dd><%= @recipe.description %></dd>
+
+      <dt>Creator</dt>
+      <dd>
+        <% if @recipe.creator.present? %>
+          <a href="/users/<%= @recipe.creator_id %>">
+            <%= @recipe.creator.username %>
+          </a>
+        <% end %>
+      </dd>
+
     </dl>
 
     <div class="btn-group btn-group-justified">
@@ -18,5 +36,59 @@
         Delete
       </a>
     </div>
+  </div>
+</div>
+
+<!-- A Recipe has many ingredients -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Ingredients
+      </li>
+
+      <% @recipe.ingredients.each do |ingredient| %>
+        <li class="list-group-item">
+          <a href="/ingredients/<%= ingredient.id %>">
+            <%= ingredient.food_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/ingredients/<%= ingredient.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/ingredients/<%= ingredient.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_ingredient/<%= ingredient.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_ingredient" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for food_id -->
+      <div class="form-group">
+        <label for="food_id" class="control-label">
+          Food
+        </label>
+
+        <%= select_tag(:food_id, options_from_collection_for_select(Food.all, :id, :name), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for recipe_id -->
+      <input type="hidden" name="recipe_id" value="<%= @recipe.id %>">
+
+      <button class="btn btn-block btn-success">
+        Create Ingredient
+      </button>
+    </form>
+      </li>
+    </ul>
   </div>
 </div>

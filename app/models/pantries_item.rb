@@ -1,9 +1,9 @@
-class Ingredient < ApplicationRecord
+class PantriesItem < ApplicationRecord
   # Direct associations
 
   belongs_to :food
 
-  belongs_to :recipe,
+  belongs_to :user,
              :counter_cache => true
 
   # Indirect associations
@@ -12,6 +12,6 @@ class Ingredient < ApplicationRecord
 
   validates :food_id, :presence => true
 
-  validates :recipe_id, :presence => true
+  validates :user_id, :presence => true
 
 end

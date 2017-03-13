@@ -11,6 +11,9 @@
       <dt>Password</dt>
       <dd><%= @user.password %></dd>
 
+      <dt>Username</dt>
+      <dd><%= @user.username %></dd>
+
     </dl>
 
     <div class="btn-group btn-group-justified">
@@ -18,5 +21,71 @@
         Back
       </a>
     </div>
+  </div>
+</div>
+
+<!-- A User has many pantries_items -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Pantries Items
+      </li>
+
+      <% @user.pantries_items.each do |pantries_item| %>
+        <li class="list-group-item">
+          <a href="/pantries_items/<%= pantries_item.id %>">
+            <%= pantries_item.user_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/pantries_items/<%= pantries_item.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <%if current_user == pantries_item.user %>
+              <a href="/pantries_items/<%= pantries_item.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+              <a href="/delete_pantries_item/<%= pantries_item.id %>" class="btn btn-danger" rel="nofollow">
+                <i class="fa fa-trash-o"></i>
+              </a>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<!-- A User has many recipes -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Recipes
+      </li>
+
+      <% @user.recipes.each do |recipe| %>
+        <li class="list-group-item">
+          <a href="/recipes/<%= recipe.id %>">
+            <%= recipe.name %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/recipes/<%= recipe.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <%if current_user == recipe.creator %>
+              <a href="/recipes/<%= recipe.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+              <a href="/delete_recipe/<%= recipe.id %>" class="btn btn-danger" rel="nofollow">
+                <i class="fa fa-trash-o"></i>
+              </a>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>

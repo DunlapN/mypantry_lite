@@ -1,0 +1,130 @@
+<div class="page-header">
+  <h3>Food #<%= @food.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Name</dt>
+      <dd><%= @food.name %></dd>
+
+      <dt>Image</dt>
+      <dd><img src="<%= @food.image %>" class="img-responsive"></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/foods" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/foods/<%= @food.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_food/<%= @food.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- A Food has many pantries_items -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Pantries Items
+      </li>
+
+      <% @food.pantries_items.each do |pantries_item| %>
+        <li class="list-group-item">
+          <a href="/pantries_items/<%= pantries_item.id %>">
+            <%= pantries_item.user_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/pantries_items/<%= pantries_item.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/pantries_items/<%= pantries_item.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_pantries_item/<%= pantries_item.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_pantries_item" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for user_id -->
+      <input type="hidden" name="user_id" value="<%= current_user.id %>">
+
+      <!-- Label and input for food_id -->
+      <input type="hidden" name="food_id" value="<%= @food.id %>">
+
+      <button class="btn btn-block btn-success">
+        Create Pantries Item
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- A Food has many ingredients -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Ingredients
+      </li>
+
+      <% @food.ingredients.each do |ingredient| %>
+        <li class="list-group-item">
+          <a href="/ingredients/<%= ingredient.id %>">
+            <%= ingredient.food_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/ingredients/<%= ingredient.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/ingredients/<%= ingredient.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_ingredient/<%= ingredient.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_ingredient" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for food_id -->
+      <input type="hidden" name="food_id" value="<%= @food.id %>">
+
+      <!-- Label and input for recipe_id -->
+      <div class="form-group">
+        <label for="recipe_id" class="control-label">
+          Recipe
+        </label>
+
+        <%= select_tag(:recipe_id, options_from_collection_for_select(Recipe.all, :id, :name), :class => "form-control") %>
+      </div>
+
+      <button class="btn btn-block btn-success">
+        Create Ingredient
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>

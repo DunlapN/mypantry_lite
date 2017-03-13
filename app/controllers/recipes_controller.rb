@@ -1,12 +1,13 @@
 class RecipesController < ApplicationController
   def index
     @q = Recipe.ransack(params[:q])
-    @recipes = @q.result(:distinct => true).page(params[:page]).per(10)
+    @recipes = @q.result(:distinct => true).includes(:ingredients, :creator).page(params[:page]).per(10)
 
     render("recipes/index.html.erb")
   end
 
   def show
+    @ingredient = Ingredient.new
     @recipe = Recipe.find(params[:id])
 
     render("recipes/show.html.erb")
@@ -21,6 +22,10 @@ class RecipesController < ApplicationController
   def create
     @recipe = Recipe.new
 
+    @recipe.name = params[:name]
+    @recipe.image = params[:image]
+    @recipe.description = params[:description]
+    @recipe.creator_id = params[:creator_id]
 
     save_status = @recipe.save
 
@@ -47,6 +52,10 @@ class RecipesController < ApplicationController
   def update
     @recipe = Recipe.find(params[:id])
 
+    @recipe.name = params[:name]
+    @recipe.image = params[:image]
+    @recipe.description = params[:description]
+    @recipe.creator_id = params[:creator_id]
 
     save_status = @recipe.save
 
