@@ -1,6 +1,6 @@
 <!-- Validation failure messages -->
-<% if @ingredient.errors.any? %>
-  <% @ingredient.errors.full_messages.each do |message| %>
+<% if @pantries_item.errors.any? %>
+  <% @pantries_item.errors.full_messages.each do |message| %>
     <div class="alert alert-dismissable alert-danger">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <%= message %>
@@ -9,14 +9,17 @@
 <% end %>
 
 <div class="page-header">
-  <h3>Add Ingredient</h3>
+  <h3>Add Pantries Item</h3>
 </div>
 
 <div class="row">
   <div class="col-md-12">
-    <form action="/create_ingredient" method="post">
+    <form action="/create_pantries_item" method="post">
       <!-- Hidden input for authenticity token to protect from forgery -->
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for user_id -->
+      <input type="hidden" name="user_id" value="<%= current_user.id %>">
 
       <!-- Label and input for food_id -->
       <div class="form-group">
@@ -24,23 +27,14 @@
           Food
         </label>
 
-        <%= select_tag(:food_id, options_from_collection_for_select(Food.all, :id, :name, @ingredient.food_id), :class => "form-control") %>
-      </div>
-
-      <!-- Label and input for recipe_id -->
-      <div class="form-group">
-        <label for="recipe_id" class="control-label">
-          Recipe
-        </label>
-
-        <%= select_tag(:recipe_id, options_from_collection_for_select(Recipe.all, :id, :name, @ingredient.recipe_id), :class => "form-control") %>
+        <%= select_tag(:food_id, options_from_collection_for_select(Food.all, :id, :name, @pantries_item.food_id), :class => "form-control") %>
       </div>
 
       <button class="btn btn-success">
-        Create Ingredient
+        Create Pantries Item
       </button>
       or
-      <a href="/ingredients">Cancel</a>
+      <a href="/pantries_items">Cancel</a>
     </form>
   </div>
 </div>

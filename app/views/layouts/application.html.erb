@@ -41,9 +41,10 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
+          <li><a href="/foods">Foods</a></li>
           <li><a href="/ingredients">Ingredients</a></li>
           <li><a href="/users">Users</a></li>
-          <li><a href="/pantries">Pantries</a></li>
+          <li><a href="/pantries_items">Pantries Items</a></li>
           <li><a href="/recipes">Recipes</a></li>
           <li><a href="/rails/info">Sitemap</a></li>
         </ul>
@@ -52,7 +53,7 @@
           <% if current_user.present? %>
             <li>
               <a href="/users/edit">
-                <%= current_user.email %>
+                <%= current_user.username %>
               </a>
             </li>
 

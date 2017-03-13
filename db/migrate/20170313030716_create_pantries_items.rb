@@ -1,6 +1,6 @@
-class CreatePantries < ActiveRecord::Migration
+class CreatePantriesItems < ActiveRecord::Migration
   def change
-    create_table :pantries do |t|
+    create_table :pantries_items do |t|
       t.integer :user_id
       t.integer :food_id
 
