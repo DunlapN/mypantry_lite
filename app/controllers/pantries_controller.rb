@@ -1,6 +1,6 @@
 class PantriesController < ApplicationController
   def index
-    @pantries = Pantry.all
+    @pantries = Pantry.page(params[:page]).per(10)
 
     render("pantries/index.html.erb")
   end
