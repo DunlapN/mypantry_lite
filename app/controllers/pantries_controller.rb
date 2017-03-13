@@ -1,6 +1,7 @@
 class PantriesController < ApplicationController
   def index
-    @pantries = Pantry.page(params[:page]).per(10)
+    @q = Pantry.ransack(params[:q])
+    @pantries = @q.result(:distinct => true).page(params[:page]).per(10)
 
     render("pantries/index.html.erb")
   end
